@@ -1,0 +1,25 @@
+{
+  "name": "asaservice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "dependencies": {
+    "express": "^4.15.2"
+  },
+  "devDependencies": {
+    "express": "^4.15.2"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mtintes/AsAService.git"
+  },
+  "author": "mike t",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mtintes/AsAService/issues"
+  },
+  "homepage": "https://github.com/mtintes/AsAService#readme"
+}
