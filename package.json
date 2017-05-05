@@ -10,7 +10,7 @@
     "express": "^4.15.2"
   },
   "scripts": {
-    "test": "test"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
