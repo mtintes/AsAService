@@ -11,7 +11,7 @@ res.setHeader('Access-Control-Allow-Origin', 'http://mtintes.com');
 	MongoClient.connect(mongoUrl, function(err, db){
 
 		var col = db.collection('good_morning');
-
+		
 		col.insert(
 			{
 				videos:["1TffpkE2GU4",
