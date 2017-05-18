@@ -5,6 +5,7 @@ var app = express();
 var response = "";
 
 var mongoUrl = process.env.MONGODB_URI;
+console.log(mongoUrl);
 
 app.get('/load', function (req, res){
 res.setHeader('Access-Control-Allow-Origin', 'http://mtintes.com');
