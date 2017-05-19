@@ -124,7 +124,7 @@ res.setHeader('Access-Control-Allow-Origin', 'http://mtintes.com');
 
 		col.find().toArray(
 			 function(err, result){
-				res.json("https://youtube.com/watch?v="+result[0].videos[0]);
+				res.json("https://youtube.com/watch?v="+result[0].video);
 			db.close();
 		});
 	});
