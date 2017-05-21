@@ -49,23 +49,27 @@ app.post('/add', function (req,res){
 		// 	for( var property in req){
 		// 	console.log(property);
 		// }
-		var existing = col.find( { "video": req.body.video });
+		col.findOne( { "video": req.body.video },function(err, result){
 
-		if(existing){
-			db.close();
-			res.json("video already exists");
-		}else{
+			console.log(result);
+			if(result){
+				db.close();
+				res.json("video already exists");
+			}else{
+				col.insert(
+					{video:req.body.video
+						}, {w:1}, function(err, result){
 
-			col.insert(
-				{video:req.body.video
-					}, {w:1}, function(err, result){
+				})
 
-			})
+				db.close();
 
-			db.close();
+			res.json("added video");
+			}
 
-		res.json("added video");
-		}
+
+		});
+
 	});
 });
 
