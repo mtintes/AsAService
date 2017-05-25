@@ -33,37 +33,39 @@ res.setHeader('Access-Control-Allow-Origin', 'http://mtintes.com');
 
 console.log("current date: "+current.date);
 
-if(current.date === "" || current.date !== new Date().setHours(0,0,0,0)){
-	console.log("pull new");
+if(current.video === ""){
 	MongoClient.connect(mongoUrl, function(err, db){
 
 		var col = db.collection('good_morning');
 
-		if(current.video){
-			console.log("video is "+current.video);
-			col.findOne({ "video": current.video }, function(err,result){
-				console.log(result);
-				console.log(result.used);
-				console.log(result.video);
-				console.log(result._id);
+			//look for todays video
+			col.findOne({ "date": new Date().setHours(0,0,0,0)}, function(err,result){
+				if(result){
+					console.log(result);
+					console.log(result.video);
+					console.log(result._id);
+					current.video = result.video;
+					current.date = result.date;
+				}else{
+					col.find({"date":{ "$exists": false}}).toArray(
+						 function(err, result){
+							 console.log("setting video");
+							 console.log(result);
+							 console.log(result[0].video);
+							 console.log(result[0]._id);
+							current.video = result[0].video;
+							current.date = new Date().setHours(0,0,0,0);
+							col.update({_id:result[0]._id}, {$set: {date:current.date}});
+							console.log("new date: " + current.date);
+							res.json("https://youtube.com/watch?v="+current.video);
+						db.close();
+					});
 
-				console.log("updating yesterdays video");
-				col.update({_id:result._id}, {$set: {used:true}});
+				}
+
+
 			});
-		}
-
-		col.find({"used":{ "$ne": true}}).toArray(
-			 function(err, result){
-				 console.log("setting video");
-				 console.log(result[0].video);
-				 console.log(result[0]._id);
-				current.video = result[0].video;
-				current.date = new Date().setHours(0,0,0,0);
-				console.log("new date: " + current.date);
-				res.json("https://youtube.com/watch?v="+current.video);
-			db.close();
 		});
-	});
 
 }else{
 		console.log("video already exists");
@@ -71,7 +73,6 @@ if(current.date === "" || current.date !== new Date().setHours(0,0,0,0)){
 		res.json("https://youtube.com/watch?v="+current.video);
 }
 });
-
 
 
 
