@@ -49,11 +49,12 @@ if(current.video === ""){
 				}else{
 					col.find({"date":{ "$exists": false}}).toArray(
 						 function(err, result){
+							 var random = Math.floor(Math.random() * result.length)
 							 console.log("setting video");
 							 console.log(result);
-							 console.log(result[0].video);
-							 console.log(result[0]._id);
-							current.video = result[0].video;
+							 console.log(result[random].video);
+							 console.log(result[random]._id);
+							current.video = result[random].video;
 							current.date = new Date().setHours(0,0,0,0);
 							col.update({_id:result[0]._id}, {$set: {date:current.date}});
 							console.log("new date: " + current.date);
