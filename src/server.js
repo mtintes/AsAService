@@ -56,7 +56,7 @@ if(current.video === ""){
 							 console.log(result[random]._id);
 							current.video = result[random].video;
 							current.date = new Date().setHours(0,0,0,0);
-							col.update({_id:result[0]._id}, {$set: {date:current.date}});
+							col.update({_id:result[random]._id}, {$set: {date:current.date}});
 							console.log("new date: " + current.date);
 							res.json("https://youtube.com/watch?v="+current.video);
 						db.close();
